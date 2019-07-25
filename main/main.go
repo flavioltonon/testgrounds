@@ -1,42 +1,55 @@
 package main
 
 import (
+	"context"
 	"flavioltonon/testgrounds"
+	gcs "flavioltonon/testgrounds/google_cloud_storage"
 	"fmt"
 	"log"
 )
 
 func main() {
 	var options = testgrounds.Options{
-		testgrounds.StorageOptionName{
-			Name: testgrounds.GOOGLE_CLOUD_STORAGE,
+		testgrounds.StorageOption{
+			Name: gcs.STORAGE_NAME,
 		},
-		testgrounds.StorageOptionName{
-			Name: testgrounds.ANOTHER_STORAGE,
+		testgrounds.StorageOption{
+			Credentials: []byte{},
+		},
+		testgrounds.BucketOption{
+			Name:    "testgrounds",
+			Project: "test1",
 		},
 	}
 
-	var optionsByType = make(map[string]testgrounds.Options, 0)
+	storageOptions := options.ByType(testgrounds.OPTION_TYPE_STORAGE)
 
-	for _, option := range options {
-		optionsByType[option.Type()] = append(optionsByType[option.Type()], option)
-	}
-
-	storageOptions := optionsByType[testgrounds.OPTION_TYPE_STORAGE]
-
-	storageOptionsName := storageOptions.BySubtype(testgrounds.OPTION_SUBTYPE_STORAGE_NAME)
-	if len(storageOptionsName) > 1 {
-		log.Fatal(fmt.Errorf("invalid number of storage options name: %d", len(storageOptionsName)))
-	}
-
-	storageName := storageOptionsName[0].(testgrounds.StorageOptionName).Name
-
-	storage, err := testgrounds.RegisteredStorages().ByName(storageName)
+	storage, err := testgrounds.NewStorage(storageOptions[len(storageOptions)-1].(testgrounds.StorageOption).Name)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("failed to set storage: ", err)
 	}
 
-	fmt.Println(storage.Name())
+	client, err := storage.Connect(context.Background(), nil)
+	if err != nil {
+		log.Fatal("failed to connect to storage: ", err)
+	}
+
+	bucket, err := client.NewBucket(options.ByType(testgrounds.OPTION_TYPE_BUCKET)...)
+	if err != nil {
+		log.Fatal("failed to create new bucket handler: ", err)
+	}
+
+	err = bucket.Create()
+	if err != nil {
+		log.Fatal("failed to create bucket: ", err)
+	}
+
+	attributes, err := bucket.Attributes()
+	if err != nil {
+		log.Fatal("failed to get bucket attributes: ", err)
+	}
+
+	fmt.Println(attributes)
 
 	// ctx := context.Background()
 	// client, err := storage.NewClient(ctx)
