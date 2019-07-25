@@ -1,10 +1,13 @@
 package testgrounds
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+)
 
 type Storage interface {
 	Name() string
-	Connect(options ...Option) (Client, error)
+	Connect(ctx context.Context, options ...Option) (Client, error)
 }
 
 type Storages map[string]Storage
@@ -23,11 +26,11 @@ func RegisteredStorages() Storages {
 	return storages
 }
 
-func (s Storages) ByName(name string) (Storage, error) {
-	if _, exists := s[name]; !exists {
+func NewStorage(name string) (Storage, error) {
+	if _, exists := storages[name]; !exists {
 		return nil, fmt.Errorf("'%s' is not a registered storage type", name)
 	}
-	return s[name], nil
+	return storages[name], nil
 }
 
 func (s Storages) Contain(name string) bool {
