@@ -1,7 +1,7 @@
 package main
 
 import (
-	"flavioltonon/testgrounds/dijkstra/model"
+	"flavioltonon/testgrounds/golang/dijkstra/model"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 
 	g.Print().Routes()
 
-	p, err := g.BestPath("A", "A")
+	p, err := g.BestPath("A", "C")
 	if err != nil {
 		panic(err)
 	}

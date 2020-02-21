@@ -1,4 +1,4 @@
-module flavioltonon/testgrounds
+module flavioltonon/testgrounds/golang
 
 go 1.13
 
