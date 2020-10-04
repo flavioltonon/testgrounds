@@ -1,4 +1,4 @@
-package model
+package dijkstra
 
 type route struct {
 	from string

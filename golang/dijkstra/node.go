@@ -1,4 +1,4 @@
-package model
+package dijkstra
 
 type node struct {
 	name string

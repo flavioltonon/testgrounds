@@ -1,11 +1,9 @@
 package main
 
-import (
-	"flavioltonon/testgrounds/golang/dijkstra/model"
-)
+import "testgrounds/dijkstra"
 
 func main() {
-	g := model.NewGraph()
+	g := dijkstra.NewGraph()
 
 	g.AddRoute("A", "B", 2)
 	g.AddRoute("A", "C", 3)

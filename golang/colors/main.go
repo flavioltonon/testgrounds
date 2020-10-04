@@ -48,13 +48,13 @@ func main() {
 }
 
 func displayColors() {
-	// for n, c := range colornames.Map {
-	// 	// RGBA to YCbCR
-	// 	tmp := color.YCbCrModel.Convert(c).(color.YCbCr)
+	for _, c := range colornames.Map {
+		// RGBA to YCbCR
+		tmp := color.YCbCrModel.Convert(c).(color.YCbCr)
 
-	// 	// YCbCr to RGB
-	// 	r, g, b := color.YCbCrToRGB(tmp.Y, tmp.Cb, tmp.Cr)
+		// YCbCr to RGB
+		r, g, b := color.YCbCrToRGB(tmp.Y, tmp.Cb, tmp.Cr)
 
-	// 	fmt.Println(r, g, b)
-	// }
+		fmt.Println(r, g, b)
+	}
 }

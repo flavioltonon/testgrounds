@@ -1,4 +1,4 @@
-package model
+package dijkstra
 
 import "fmt"
 
