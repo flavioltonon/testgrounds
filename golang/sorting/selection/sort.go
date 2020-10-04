@@ -1,4 +1,4 @@
-package selectionsort
+package selection
 
 // Sort performs a SelectionSort algorithm, sorting an slice with O(n^2) time complexity
 func Sort(input []int) {

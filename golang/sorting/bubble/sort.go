@@ -1,4 +1,4 @@
-package bubblesort
+package bubble
 
 // Sort performs a BubbleSort algorithm, sorting an slice with O(n^2) time complexity
 func Sort(input []int) {

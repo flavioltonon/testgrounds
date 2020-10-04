@@ -1,4 +1,4 @@
-package mergesort
+package merge
 
 // Sort performs a MergeSort algorithm, sorting an slice with O(n.log(n)) time complexity
 func Sort(input []int) {
