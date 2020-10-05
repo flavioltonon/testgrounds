@@ -8,9 +8,9 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSort(t *testing.T) {
-	input := []int{7, 2, 1, 4, 9, 6, 0, 3, 8, 5}
-	expected := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+func TestLinkedList(t *testing.T) {
+	input := []string{"7", "2", "1", "4", "9", "6", "0", "3", "8", "5"}
+	expected := []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
 
 	linkedList := structures.NewLinkedList()
 
@@ -26,4 +26,8 @@ func TestSort(t *testing.T) {
 		assert.Equal(t, expected[i], current.Value())
 		current = current.Next()
 	}
+
+	assert.Equal(t, false, linkedList.Search("10"))
+	assert.Equal(t, true, linkedList.Search("1"))
+	assert.Equal(t, true, linkedList.Search("5"))
 }

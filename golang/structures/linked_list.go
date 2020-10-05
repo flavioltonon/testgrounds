@@ -7,7 +7,7 @@ type LinkedList struct {
 	length int
 }
 
-// NewLinkedList creates a LinkedList with a value and returns a pointer to it
+// NewLinkedList creates a LinkedList and returns a pointer to it
 func NewLinkedList() *LinkedList {
 	return &LinkedList{}
 }
@@ -17,13 +17,33 @@ func (l LinkedList) Len() int {
 	return l.length
 }
 
+// Elements returns all the elements the LinkedList contains
+func (l LinkedList) Elements() []string {
+	elems := make([]string, 0, l.length)
+
+	current := l.head
+
+	for current != nil {
+		elems = append(elems, current.value)
+		current = current.next
+	}
+
+	return elems
+}
+
 // Head returns a pointer to the first node in the LinkedList
 func (l LinkedList) Head() *Node {
 	return l.head
 }
 
+// Search returns true if the input value exist in any of its nodes and returns false otherwise in
+// an O(n) time complexity.
+func (l LinkedList) Search(value string) bool {
+	return l.head.search(value)
+}
+
 // Insert adds a new value to the LinkedList, minding the order of the nodes values
-func (l *LinkedList) Insert(value int) {
+func (l *LinkedList) Insert(value string) {
 	defer func() { l.length++ }()
 
 	new := &Node{
@@ -40,7 +60,8 @@ func (l *LinkedList) Insert(value int) {
 	}
 }
 
-func (l *LinkedList) Delete(value int) (deleted bool) {
+// Delete removes a value from the LinkedList (if it exists), minding the order of the nodes values
+func (l *LinkedList) Delete(value string) (deleted bool) {
 	defer func() {
 		if deleted {
 			l.length--
@@ -66,18 +87,30 @@ func (l *LinkedList) Delete(value int) (deleted bool) {
 // Node represents a single node of Linked List data structures, which should contain
 // a value and a pointer to the next Node
 type Node struct {
-	value int
+	value string
 	next  *Node
 }
 
 // Value returns the value stored on the current node
-func (n *Node) Value() int {
+func (n *Node) Value() string {
 	return n.value
 }
 
 // Next returns a pointer to the node next to the current node
 func (n *Node) Next() *Node {
 	return n.next
+}
+
+func (n *Node) search(value string) bool {
+	if n == nil {
+		return false
+	}
+
+	if n.value != value {
+		return n.next.search(value)
+	}
+
+	return true
 }
 
 func (n *Node) insert(new *Node) {
@@ -95,7 +128,7 @@ func (n *Node) insert(new *Node) {
 	n.next.insert(new)
 }
 
-func (n *Node) delete(value int) bool {
+func (n *Node) delete(value string) bool {
 	if n.next == nil {
 		return false
 	}
