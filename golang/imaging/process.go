@@ -17,7 +17,7 @@ func Process(path string, opts ...Option) error {
 		src = opt.apply(src)
 	}
 
-	out := fmt.Sprintf("output/imaging/%s.jpg", uuid.New())
+	out := fmt.Sprintf("../output/imaging/%s.jpg", uuid.New())
 
 	err = imaging.Save(src, out)
 	if err != nil {

@@ -1,12 +1,15 @@
-package main
+package imaging_test
 
 import (
 	"fmt"
 	"testgrounds/imaging"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func main() {
-	path := fmt.Sprintf("assets/images/sample.jpg")
+func TestProcess(t *testing.T) {
+	path := fmt.Sprintf("../assets/images/sample.jpg")
 
 	err := imaging.Process(path,
 		imaging.Resize(1024, 768),
@@ -15,7 +18,6 @@ func main() {
 		imaging.AdjustBrightness(-15),
 		imaging.Sharpen(3),
 	)
-	if err != nil {
-		panic(err)
-	}
+
+	assert.NoError(t, err)
 }

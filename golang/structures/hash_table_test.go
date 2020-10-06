@@ -1,7 +1,6 @@
 package structures_test
 
 import (
-	"fmt"
 	"testing"
 
 	"testgrounds/structures"
@@ -29,11 +28,11 @@ func TestHashTable(t *testing.T) {
 		assert.Equal(t, true, hashTable.Search(elem))
 	}
 
-	for i, bucket := range hashTable.Buckets {
-		if bucket == nil {
-			continue
-		}
+	// for i, bucket := range hashTable.Buckets {
+	// 	if bucket == nil {
+	// 		continue
+	// 	}
 
-		fmt.Printf("Bucket: %d | Len: %d | Elements: %v\n", i, bucket.Len(), bucket.Elements())
-	}
+	// 	fmt.Printf("Bucket: %d | Len: %d | Elements: %v\n", i, bucket.Len(), bucket.Elements())
+	// }
 }
