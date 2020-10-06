@@ -1,1 +1,4 @@
 golang/output/imaging/*
+.data/*
+.env
+golang/env
