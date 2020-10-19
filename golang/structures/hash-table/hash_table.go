@@ -1,12 +1,16 @@
-package structures
+package hash_table
 
-import "unicode"
+import (
+	"unicode"
+
+	singly "testgrounds/structures/singly-linked-list"
+)
 
 // HashTableSize defines the size of the base array of HashTables
 const HashTableSize = 26
 
 type HashTable struct {
-	buckets [HashTableSize]*LinkedList
+	buckets [HashTableSize]*singly.LinkedList
 
 	// hashFunc represents the hash function which is used to map input values to an specific
 	// Bucket index on the HashTable
@@ -14,7 +18,7 @@ type HashTable struct {
 }
 
 // NewHashTable creates a HashTable and returns a pointer to it
-func NewHashTable() *HashTable {
+func NewTable() *HashTable {
 	return &HashTable{
 		hashFunc: func(value string) int {
 			s0 := unicode.ToLower(rune(value[0])) - 'a'
@@ -57,10 +61,10 @@ func (h *HashTable) Add(value string) {
 	index := h.hashFunc(value)
 
 	if h.buckets[index] == nil {
-		h.buckets[index] = NewLinkedList()
+		h.buckets[index] = singly.NewLinkedList()
 	}
 
-	h.buckets[index].Add(value)
+	h.buckets[index].Prepend(value)
 }
 
 // Delete removes a value from the HashTable (if it exists), minding the order of the nodes values in the target Bucket

@@ -1,4 +1,4 @@
-package structures
+package singly_linked_list
 
 // LinkedList represents a Linked List data structure, which should contain a series of
 // nodes pointing to the next node.
@@ -43,7 +43,7 @@ func (l *LinkedList) Search(value string) bool {
 }
 
 // Add adds a new value to the beginning of the LinkedList with an O(1) time complexity
-func (l *LinkedList) Add(value string) {
+func (l *LinkedList) Prepend(value string) {
 	new := &Node{
 		value: value,
 	}

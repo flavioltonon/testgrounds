@@ -1,9 +1,9 @@
-package structures_test
+package hash_table_test
 
 import (
 	"testing"
 
-	"testgrounds/structures"
+	hash "testgrounds/structures/hash-table"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -16,23 +16,15 @@ func TestHashTable(t *testing.T) {
 		"South Korea", "Switzerland", "Germany", "Poland", "Iceland", "Norway", "Sweden", "Belgium",
 	}
 
-	hashTable := structures.NewHashTable()
+	table := hash.NewTable()
 
 	for _, v := range input {
-		hashTable.Add(v)
+		table.Add(v)
 	}
 
-	assert.Equal(t, len(input), hashTable.Size())
+	assert.Equal(t, len(input), table.Size())
 
 	for _, elem := range input {
-		assert.Equal(t, true, hashTable.Search(elem))
+		assert.Equal(t, true, table.Search(elem))
 	}
-
-	// for i, bucket := range hashTable.Buckets {
-	// 	if bucket == nil {
-	// 		continue
-	// 	}
-
-	// 	fmt.Printf("Bucket: %d | Len: %d | Elements: %v\n", i, bucket.Len(), bucket.Elements())
-	// }
 }
