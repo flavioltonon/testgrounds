@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"testgrounds/sorting/merge"
+	"testgrounds/sorting/merge-sort"
 
 	"github.com/stretchr/testify/assert"
 )

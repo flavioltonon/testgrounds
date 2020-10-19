@@ -3,7 +3,7 @@ package selection_test
 import (
 	"testing"
 
-	"testgrounds/sorting/selection"
+	"testgrounds/sorting/selection-sort"
 
 	"github.com/stretchr/testify/assert"
 )

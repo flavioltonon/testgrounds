@@ -1,4 +1,4 @@
-package hash_table_test
+package hash
 
 import (
 	"testing"

@@ -3,7 +3,7 @@ package bubble_test
 import (
 	"testing"
 
-	"testgrounds/sorting/bubble"
+	bubble "testgrounds/sorting/bubble-sort"
 
 	"github.com/stretchr/testify/assert"
 )

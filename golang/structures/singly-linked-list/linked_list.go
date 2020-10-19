@@ -1,4 +1,4 @@
-package singly_linked_list
+package singly
 
 // LinkedList represents a Linked List data structure, which should contain a series of
 // nodes pointing to the next node.

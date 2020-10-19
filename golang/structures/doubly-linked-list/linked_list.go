@@ -1,4 +1,4 @@
-package doubly_linked_list
+package doubly
 
 // DoublyLinkedList represents a Linked List data structure, which should contain a series of
 // nodes pointing to the next node.
