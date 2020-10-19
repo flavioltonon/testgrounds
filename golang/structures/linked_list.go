@@ -13,75 +13,64 @@ func NewLinkedList() *LinkedList {
 }
 
 // Len returns the size of the LinkedList
-func (l LinkedList) Len() int {
+func (l *LinkedList) Len() int {
 	return l.length
 }
 
-// Elements returns all the elements the LinkedList contains
-func (l LinkedList) Elements() []string {
-	elems := make([]string, 0, l.length)
+// Values returns all the values the LinkedList contains
+func (l *LinkedList) Values() []string {
+	values := make([]string, 0, l.length)
 
 	current := l.head
 
 	for current != nil {
-		elems = append(elems, current.value)
+		values = append(values, current.value)
 		current = current.next
 	}
 
-	return elems
+	return values
 }
 
 // Head returns a pointer to the first node in the LinkedList
-func (l LinkedList) Head() *Node {
+func (l *LinkedList) Head() *Node {
 	return l.head
 }
 
 // Search returns true if the input value exist in any of its nodes and returns false otherwise in
 // an O(n) time complexity.
-func (l LinkedList) Search(value string) bool {
+func (l *LinkedList) Search(value string) bool {
 	return l.head.search(value)
 }
 
-// Insert adds a new value to the LinkedList, minding the order of the nodes values
-func (l *LinkedList) Insert(value string) {
-	defer func() { l.length++ }()
-
+// Add adds a new value to the beginning of the LinkedList with an O(1) time complexity
+func (l *LinkedList) Add(value string) {
 	new := &Node{
 		value: value,
 	}
 
-	if l.head == nil {
-		l.head = new
-	} else if new.value < l.head.value {
+	if l.head != nil {
 		new.next = l.head
-		l.head = new
-	} else {
-		l.head.insert(new)
 	}
+
+	l.head = new
+	l.length++
 }
 
 // Delete removes a value from the LinkedList (if it exists), minding the order of the nodes values
-func (l *LinkedList) Delete(value string) (deleted bool) {
-	defer func() {
-		if deleted {
-			l.length--
-		}
-	}()
-
-	if l == nil {
-		return false
-	}
-
+func (l *LinkedList) Delete(value string) bool {
 	if l.head == nil {
 		return false
 	}
 
 	if l.head.value == value {
 		l.head = l.head.next
-		return true
+	} else if deleted := l.head.delete(value); !deleted {
+		return false
 	}
 
-	return l.head.delete(value)
+	l.length--
+
+	return true
 }
 
 // Node represents a single node of Linked List data structures, which should contain
@@ -113,30 +102,16 @@ func (n *Node) search(value string) bool {
 	return true
 }
 
-func (n *Node) insert(new *Node) {
-	if n.next == nil {
-		n.next = new
-		return
-	}
-
-	if new.value < n.next.value {
-		new.next = n.next
-		n.next = new
-		return
-	}
-
-	n.next.insert(new)
-}
-
 func (n *Node) delete(value string) bool {
 	if n.next == nil {
 		return false
 	}
 
-	if n.next.value == value {
-		n.next = n.next.next
-		return true
+	if n.next.value != value {
+		return n.next.delete(value)
 	}
 
-	return n.next.delete(value)
+	n.next = n.next.next
+
+	return true
 }

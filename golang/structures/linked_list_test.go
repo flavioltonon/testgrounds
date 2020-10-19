@@ -10,21 +10,18 @@ import (
 
 func TestLinkedList(t *testing.T) {
 	input := []string{"7", "2", "1", "4", "9", "6", "0", "3", "8", "5"}
-	expected := []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
+	expected := []string{"5", "8", "3", "0", "6", "9", "4", "1", "2", "7"}
 
 	linkedList := structures.NewLinkedList()
 
 	for _, v := range input {
-		linkedList.Insert(v)
+		linkedList.Add(v)
 	}
 
 	assert.Equal(t, len(input), linkedList.Len())
 
-	current := linkedList.Head()
-
-	for i := 0; i < linkedList.Len(); i++ {
-		assert.Equal(t, expected[i], current.Value())
-		current = current.Next()
+	for i, value := range linkedList.Values() {
+		assert.Equal(t, expected[i], value)
 	}
 
 	assert.Equal(t, false, linkedList.Search("10"))

@@ -19,7 +19,7 @@ func TestHashTable(t *testing.T) {
 	hashTable := structures.NewHashTable()
 
 	for _, v := range input {
-		hashTable.Insert(v)
+		hashTable.Add(v)
 	}
 
 	assert.Equal(t, len(input), hashTable.Size())
